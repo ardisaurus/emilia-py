@@ -3,7 +3,7 @@ import urllib2
 import time
 
 def check(dvc_id):
-	url="http://127.0.0.1/emilia-server/index.php/device/?dvc_id="+dvc_id
+	url="http://192.168.43.201/emilia-server/index.php/device/?dvc_id="+dvc_id
 	json_obj=urllib2.urlopen(url)
 	data = json.load(json_obj)
 	return int(data[0]['dvc_status'])
@@ -27,5 +27,5 @@ try:
 			lock()
 			c_status=0
 		time.sleep(1)		
-except KeyboardInterupt:
+except KeyboardInterrupt:
 	pass
