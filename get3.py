@@ -3,10 +3,10 @@ import urllib2
 import time
 
 def check(dvc_id):
-	url="http://192.168.43.201/emilia-server/index.php/device/?dvc_id="+dvc_id
+	url="http://127.0.0.1/emilia-server/index.php/device/?dvc_id="+dvc_id
 	json_obj=urllib2.urlopen(url)
 	data = json.load(json_obj)
-	return int(data[0]['dvc_status'])
+	return int(data['result'][0]['dvc_status'])
 
 def unlock():
 	print('open')
@@ -14,7 +14,7 @@ def unlock():
 def lock():
 	print('close')
 
-dvc_id="ue025"
+dvc_id="bk803"
 c_status=0
 lock()
 try:

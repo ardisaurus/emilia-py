@@ -1,7 +1,11 @@
 import json
+import urllib
 import urllib2
 
-url="http://127.0.0.1/emilia-server/index.php/device/?dvc_id=ue025"
-json_obj=urllib2.urlopen(url)
-data = json.load(json_obj)
-print data[0]['dvc_status']
+datan = {
+    'action': 'sc_check',
+    'dvc_id': 'bk803'
+}
+r=urllib2.urlopen('http://127.0.0.1/emilia-server/index.php/memberdeviceman', urllib.urlencode(datan))
+data = json.load(r)
+print(data['result']['status'])
