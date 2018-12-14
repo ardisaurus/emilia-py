@@ -7,7 +7,7 @@ import time
 import RPi.GPIO as GPIO
 from Crypto.Cipher import AES
 
-serveraddress = "127.0.0.1"
+serveraddress = "192.168.1.4"
 dvc_id="bk803"
 
 def check(dvc_id, cipher_sym, a, b, serveraddress):
@@ -132,7 +132,22 @@ def unlock():
         p.stop()
         GPIO.cleanup()
 	print('open')
-
+	
+def lit():
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setwarnings(False)
+    GPIO.setup(11,GPIO.OUT)
+    GPIO.output(11,GPIO.HIGH)
+	
+def blink():
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setwarnings(False)
+    GPIO.setup(17,GPIO.OUT)
+    GPIO.output(17,GPIO.HIGH)
+    time.sleep(0.5)
+    GPIO.output(17,GPIO.LOW)
+    GPIO.cleanup()
+	
 c_status=0
 lock()
 a=randomprime()
@@ -153,7 +168,11 @@ try:
 			c_status=1
 		if (c_status==1 and s_status==0):
 			lock()
-			c_status=0
+			c_status=0	
+		if (c_status==0):
+                    lit()
+		if (c_status==1):
+                    blink()
 		time.sleep(1)		
 except KeyboardInterrupt:
 	pass
